@@ -1,0 +1,109 @@
+#check if array is sorted and rotated
+
+class Solution {
+    public boolean check(int[] nums) {
+        int count = 0;
+        int n = nums.length;
+        
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > nums[(i + 1) % n]) {
+                count++;
+            }
+        }
+        
+        if(count > 1) return false;
+        return true;
+    }
+}
+
+# Move Zeroes to an end
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int nonZeroPos = 0;
+        for (int i=0; i<nums.length; i++) {
+            if(nums[i] !=0) {
+                nums[nonZeroPos] = nums[i];
+                nonZeroPos++;
+
+            }
+        }
+        for(int i=nonZeroPos; i<nums.length; i++) {
+            nums[i] = 0;
+        }
+
+    }
+}
+
+# through two pointer approach
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int left= 0;
+        for (int right=0; right<nums.length; right++) {
+            if(nums[right] !=0) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+        }
+
+    }
+}
+}
+
+# find consecutive one 
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n  = nums.length;
+        int expectedSum = n * (n + 1) / 2 ;
+        int actualSum = 0;
+        for(int num : nums) {
+            actualSum += num;
+
+        }
+        return expectedSum - actualSum;
+
+    }
+}
+
+# p-11 container with most water
+# Brute Approach
+class Solution {
+    public int maxArea(int[] height) {
+        int maxWater = 0;
+        int n = height.length;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int width = j - i;
+                int h = Math.min(height[i], height[j]);
+                int area = width * h;
+                maxWater = Math.max(maxWater, area);
+            }
+        }
+        
+        return maxWater;
+    }
+}
+
+#optimal approach : Two pointer
+class Solution {
+    public int maxArea(int[] height) {
+        int maxWater = 0;
+        int left = 0;
+        int right = height.length - 1;
+        
+        while (left < right) {
+            int width = right - left;
+            int h = Math.min(height[left], height[right]);
+            int area = width * h;
+            maxWater = Math.max(maxWater, area);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        return maxWater;
+    }
+}
